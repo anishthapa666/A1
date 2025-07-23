@@ -1,0 +1,304 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Study Companion - Bloom{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">Study Companion</h1>
+        <p class="text-gray-600 text-lg">Enhance your learning with our comprehensive study tools</p>
+    </div>
+
+    <!-- Mental Health & Motivation Section -->
+    <div class="bg-white rounded-3xl shadow-lg p-8 mb-12">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8">Mental Health & Motivation</h2>
+        
+        <!-- Mood Tracker -->
+        <div class="mb-8">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Mood Tracker</h3>
+            <div class="flex flex-wrap gap-3">
+                <button class="mood-btn px-4 py-3 rounded-full border-2 border-gray-200 hover:border-green-400 transition-colors" data-mood="happy">
+                    <span class="text-2xl mr-2">😊</span>Happy
+                </button>
+                <button class="mood-btn px-4 py-3 rounded-full border-2 border-gray-200 hover:border-blue-400 transition-colors" data-mood="content">
+                    <span class="text-2xl mr-2">😌</span>Content
+                </button>
+                <button class="mood-btn px-4 py-3 rounded-full border-2 border-gray-200 hover:border-yellow-400 transition-colors" data-mood="neutral">
+                    <span class="text-2xl mr-2">😐</span>Neutral
+                </button>
+                <button class="mood-btn px-4 py-3 rounded-full border-2 border-gray-200 hover:border-orange-400 transition-colors" data-mood="sad">
+                    <span class="text-2xl mr-2">😢</span>Sad
+                </button>
+                <button class="mood-btn px-4 py-3 rounded-full border-2 border-gray-200 hover:border-red-400 transition-colors" data-mood="stressed">
+                    <span class="text-2xl mr-2">😰</span>Stressed
+                </button>
+            </div>
+        </div>
+
+        <!-- Daily Affirmations -->
+        <div class="mb-8">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Daily Affirmations</h3>
+            <div class="bg-gradient-to-r from-purple-100 to-pink-100 rounded-2xl p-8 relative overflow-hidden">
+                <div class="relative z-10">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-4" id="affirmation-title">
+                        You are capable of achieving your goals.
+                    </h4>
+                    <p class="text-gray-600 leading-relaxed" id="affirmation-text">
+                        Believe in yourself and your abilities. Every step you take brings you closer to success.
+                    </p>
+                </div>
+                <div class="absolute top-0 right-0 w-64 h-64 opacity-10">
+                    <img src="https://images.pexels.com/photos/1166209/pexels-photo-1166209.jpeg" alt="Inspiration" class="w-full h-full object-cover rounded-2xl">
+                </div>
+            </div>
+        </div>
+
+        <!-- Journal -->
+        <div class="mb-8">
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Journal</h3>
+            <form id="journal-form" class="space-y-4">
+                {% csrf_token %}
+                <textarea 
+                    id="journal-content" 
+                    name="journal_content"
+                    placeholder="Write your thoughts here..." 
+                    class="w-full p-4 border border-gray-300 rounded-xl resize-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    rows="6"
+                ></textarea>
+                <p class="text-sm text-gray-500 mb-4">
+                    Suggestions: What went well today? What challenges did you face? How can you improve tomorrow?
+                </p>
+                <input type="hidden" id="selected-mood" name="mood" value="neutral">
+                <button type="submit" class="bg-blue-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-600 transition-colors">
+                    Save Entry
+                </button>
+            </form>
+        </div>
+
+        <!-- Pomodoro Timer -->
+        <div>
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Pomodoro Timer</h3>
+            <div class="bg-gray-50 rounded-2xl p-6">
+                <div class="grid grid-cols-3 gap-4 mb-6">
+                    <div class="text-center">
+                        <input type="number" id="hours" value="00" min="0" max="23" class="w-20 h-20 text-2xl font-bold text-center border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500">
+                        <div class="text-gray-600 mt-2">Hours</div>
+                    </div>
+                    <div class="text-center">
+                        <input type="number" id="minutes" value="25" min="0" max="59" class="w-20 h-20 text-2xl font-bold text-center border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500">
+                        <div class="text-gray-600 mt-2">Minutes</div>
+                    </div>
+                    <div class="text-center">
+                        <input type="number" id="seconds" value="00" min="0" max="59" class="w-20 h-20 text-2xl font-bold text-center border-2 border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500">
+                        <div class="text-gray-600 mt-2">Seconds</div>
+                    </div>
+                </div>
+                
+                <div class="flex justify-center space-x-4">
+                    <button id="start-timer" class="bg-blue-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-600 transition-colors">
+                        Start
+                    </button>
+                    <button id="reset-timer" class="bg-gray-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-gray-600 transition-colors">
+                        Reset
+                    </button>
+                </div>
+                
+                <div id="timer-display" class="text-center mt-6 text-4xl font-bold text-gray-800">
+                    25:00
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Quick Links -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <a href="{% url 'core:notes' %}" class="card-hover bg-gradient-to-br from-green-100 to-teal-100 rounded-2xl p-6 text-center block">
+            <i class="fas fa-sticky-note text-4xl text-green-500 mb-4"></i>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Notes</h3>
+            <p class="text-gray-600">Organize study materials</p>
+        </a>
+        
+        <a href="{% url 'core:flashcards' %}" class="card-hover bg-gradient-to-br from-blue-100 to-cyan-100 rounded-2xl p-6 text-center block">
+            <i class="fas fa-cards-blank text-4xl text-blue-500 mb-4"></i>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Flashcards</h3>
+            <p class="text-gray-600">Practice with flashcards</p>
+        </a>
+        
+        <a href="{% url 'core:clinical_skills' %}" class="card-hover bg-gradient-to-br from-purple-100 to-indigo-100 rounded-2xl p-6 text-center block">
+            <i class="fas fa-user-md text-4xl text-purple-500 mb-4"></i>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Clinical Skills</h3>
+            <p class="text-gray-600">Master nursing procedures</p>
+        </a>
+        
+        <a href="{% url 'core:nclex_prep' %}" class="card-hover bg-gradient-to-br from-yellow-100 to-orange-100 rounded-2xl p-6 text-center block">
+            <i class="fas fa-graduation-cap text-4xl text-yellow-500 mb-4"></i>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">NCLEX Prep</h3>
+            <p class="text-gray-600">Practice exam questions</p>
+        </a>
+        
+        <a href="{% url 'core:nursing_curriculum' %}" class="card-hover bg-gradient-to-br from-pink-100 to-rose-100 rounded-2xl p-6 text-center block">
+            <i class="fas fa-book-medical text-4xl text-pink-500 mb-4"></i>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Nursing Curriculum</h3>
+            <p class="text-gray-600">Complete TU IOM syllabus</p>
+        </a>
+    </div>
+</div>
+
+<script>
+let selectedMood = 'neutral';
+let timerInterval = null;
+let totalSeconds = 0;
+
+// Affirmations
+const affirmations = [
+    {
+        title: "You are capable of achieving your goals.",
+        text: "Believe in yourself and your abilities. Every step you take brings you closer to success."
+    },
+    {
+        title: "Progress, not perfection.",
+        text: "Focus on making small improvements every day. Every effort counts towards your growth."
+    },
+    {
+        title: "Your potential is limitless.",
+        text: "There's no limit to what you can achieve with dedication and perseverance."
+    },
+    {
+        title: "Challenges make you stronger.",
+        text: "Every obstacle is an opportunity to grow and become more resilient."
+    }
+];
+
+// Mood selection
+document.querySelectorAll('.mood-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.mood-btn').forEach(b => {
+            b.classList.remove('border-green-400', 'border-blue-400', 'border-yellow-400', 'border-orange-400', 'border-red-400', 'bg-green-50', 'bg-blue-50', 'bg-yellow-50', 'bg-orange-50', 'bg-red-50');
+        });
+        
+        const mood = this.dataset.mood;
+        selectedMood = mood;
+        document.getElementById('selected-mood').value = mood;
+        
+        // Add active styling based on mood
+        const colorMap = {
+            'happy': ['border-green-400', 'bg-green-50'],
+            'content': ['border-blue-400', 'bg-blue-50'],
+            'neutral': ['border-yellow-400', 'bg-yellow-50'],
+            'sad': ['border-orange-400', 'bg-orange-50'],
+            'stressed': ['border-red-400', 'bg-red-50']
+        };
+        
+        this.classList.add(...colorMap[mood]);
+    });
+});
+
+// Journal form submission
+document.getElementById('journal-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    
+    fetch('{% url "core:study_companion" %}', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            document.getElementById('journal-content').value = '';
+            alert('Journal entry saved successfully!');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Error saving journal entry');
+    });
+});
+
+// Pomodoro Timer
+function updateTimerDisplay() {
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    
+    document.getElementById('timer-display').textContent = 
+        `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+document.getElementById('start-timer').addEventListener('click', function() {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        this.textContent = 'Start';
+        timerInterval = null;
+        return;
+    }
+    
+    const hours = parseInt(document.getElementById('hours').value) || 0;
+    const minutes = parseInt(document.getElementById('minutes').value) || 0;
+    const seconds = parseInt(document.getElementById('seconds').value) || 0;
+    
+    if (totalSeconds === 0) {
+        totalSeconds = hours * 3600 + minutes * 60 + seconds;
+    }
+    
+    if (totalSeconds <= 0) {
+        alert('Please set a valid time!');
+        return;
+    }
+    
+    this.textContent = 'Pause';
+    
+    timerInterval = setInterval(() => {
+        totalSeconds--;
+        updateTimerDisplay();
+        
+        if (totalSeconds <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            document.getElementById('start-timer').textContent = 'Start';
+            alert('Time\'s up! Take a break. 🎉');
+            
+            // Reset to default 25 minutes
+            totalSeconds = 0;
+            document.getElementById('hours').value = '00';
+            document.getElementById('minutes').value = '25';
+            document.getElementById('seconds').value = '00';
+            updateTimerDisplay();
+        }
+    }, 1000);
+});
+
+document.getElementById('reset-timer').addEventListener('click', function() {
+    if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+    
+    totalSeconds = 0;
+    document.getElementById('start-timer').textContent = 'Start';
+    document.getElementById('hours').value = '00';
+    document.getElementById('minutes').value = '25';
+    document.getElementById('seconds').value = '00';
+    document.getElementById('timer-display').textContent = '25:00';
+});
+
+// Load random affirmation
+function loadRandomAffirmation() {
+    const randomIndex = Math.floor(Math.random() * affirmations.length);
+    const affirmation = affirmations[randomIndex];
+    
+    document.getElementById('affirmation-title').textContent = affirmation.title;
+    document.getElementById('affirmation-text').textContent = affirmation.text;
+}
+
+// Load affirmation on page load
+document.addEventListener('DOMContentLoaded', () => {
+    loadRandomAffirmation();
+    updateTimerDisplay();
+});
+</script>
+{% endblock %}

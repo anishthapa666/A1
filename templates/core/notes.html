@@ -1,0 +1,279 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Notes - Study Companion{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">Notes</h1>
+        <p class="text-gray-600 text-lg">Organize your study materials by subject</p>
+        
+        <div class="flex justify-center space-x-4 mt-6">
+            <a href="{% url 'core:notes_history' %}" class="bg-purple-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-purple-600 transition-colors">
+                <i class="fas fa-history mr-2"></i>View History
+            </a>
+        </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="max-w-2xl mx-auto mb-8">
+        <div class="relative">
+            <i class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+            <input 
+                type="text" 
+                placeholder="Search notes..." 
+                class="w-full pl-12 pr-4 py-4 border border-gray-300 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent text-lg"
+            >
+        </div>
+    </div>
+
+    <!-- Subjects Grid -->
+    <div class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-800 mb-8">Subjects</h2>
+        <div class="grid md:grid-cols-3 lg:grid-cols-6 gap-6">
+            <div class="card-hover bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl p-6 text-center cursor-pointer">
+                <div class="w-16 h-16 bg-blue-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-stethoscope text-blue-600 text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-2">Fundamentals</h3>
+                <p class="text-sm text-gray-600">Core nursing principles</p>
+            </div>
+
+            <div class="card-hover bg-gradient-to-br from-orange-100 to-red-100 rounded-2xl p-6 text-center cursor-pointer">
+                <div class="w-16 h-16 bg-orange-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-user-md text-orange-600 text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-2">Anatomy & Physiology</h3>
+                <p class="text-sm text-gray-600">Body structure and function</p>
+            </div>
+
+            <div class="card-hover bg-gradient-to-br from-gray-100 to-blue-100 rounded-2xl p-6 text-center cursor-pointer">
+                <div class="w-16 h-16 bg-gray-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-pills text-gray-600 text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-2">Pharmacology</h3>
+                <p class="text-sm text-gray-600">Drug therapy and administration</p>
+            </div>
+
+            <div class="card-hover bg-gradient-to-br from-red-100 to-pink-100 rounded-2xl p-6 text-center cursor-pointer">
+                <div class="w-16 h-16 bg-red-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-procedures text-red-600 text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-2">Pathophysiology</h3>
+                <p class="text-sm text-gray-600">Disease processes</p>
+            </div>
+
+            <div class="card-hover bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl p-6 text-center cursor-pointer">
+                <div class="w-16 h-16 bg-purple-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-hospital text-purple-600 text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-2">Med-Surg</h3>
+                <p class="text-sm text-gray-600">Medical-surgical nursing</p>
+            </div>
+
+            <div class="card-hover bg-gradient-to-br from-green-100 to-teal-100 rounded-2xl p-6 text-center cursor-pointer">
+                <div class="w-16 h-16 bg-green-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-baby text-green-600 text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-2">Pediatric</h3>
+                <p class="text-sm text-gray-600">Children's health nursing</p>
+            </div>
+            
+            <div class="card-hover bg-gradient-to-br from-pink-100 to-yellow-100 rounded-2xl p-6 text-center cursor-pointer">
+                <div class="w-16 h-16 bg-pink-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-female text-pink-600 text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-2">Maternity</h3>
+                <p class="text-sm text-gray-600">Women's health & pregnancy</p>
+            </div>
+            
+            <div class="card-hover bg-gradient-to-br from-indigo-100 to-purple-100 rounded-2xl p-6 text-center cursor-pointer">
+                <div class="w-16 h-16 bg-indigo-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-brain text-indigo-600 text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-2">Mental Health</h3>
+                <p class="text-sm text-gray-600">Psychiatric nursing</p>
+            </div>
+            
+            <div class="card-hover bg-gradient-to-br from-teal-100 to-cyan-100 rounded-2xl p-6 text-center cursor-pointer">
+                <div class="w-16 h-16 bg-teal-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-users text-teal-600 text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-2">Community Health</h3>
+                <p class="text-sm text-gray-600">Public health nursing</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create New Note Button -->
+    <div class="text-center mb-8">
+        <button id="create-note-btn" class="bg-blue-500 text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-blue-600 transition-all hover:shadow-lg">
+            <i class="fas fa-plus mr-2"></i>Create New Note
+        </button>
+    </div>
+
+    <!-- Recent Notes -->
+    {% if notes %}
+    <div>
+        <h2 class="text-2xl font-bold text-gray-800 mb-8">Recent Notes</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {% for note in notes %}
+            <div class="card-hover bg-white rounded-2xl p-6 shadow-md">
+                <div class="flex items-center justify-between mb-4">
+                    <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                        {{ note.get_subject_display }}
+                    </span>
+                    <span class="text-gray-400 text-sm">{{ note.created_at|date:"M d" }}</span>
+                </div>
+                <h3 class="text-xl font-bold text-gray-800 mb-3">{{ note.title }}</h3>
+                <p class="text-gray-600 leading-relaxed">{{ note.content|truncatewords:20 }}</p>
+                <div class="mt-4 flex space-x-3">
+                    <button class="text-blue-500 hover:text-blue-600 font-medium">
+                        <i class="fas fa-edit mr-1"></i>Edit
+                    </button>
+                    <a href="{% url 'core:view_note' note.id %}" class="text-green-500 hover:text-green-600 font-medium">
+                        <i class="fas fa-eye mr-1"></i>View
+                    </a>
+                    <button class="text-red-500 hover:text-red-600 font-medium">
+                        <i class="fas fa-trash mr-1"></i>Delete
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% else %}
+    <div class="text-center py-16">
+        <i class="fas fa-sticky-note text-6xl text-gray-300 mb-4"></i>
+        <h3 class="text-2xl font-bold text-gray-600 mb-4">No notes yet</h3>
+        <p class="text-gray-500">Create your first note to get started with organizing your study materials.</p>
+    </div>
+    {% endif %}
+</div>
+
+<!-- Create Note Modal -->
+<div id="note-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-2xl p-8 max-w-2xl mx-4 w-full max-h-screen overflow-y-auto">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-2xl font-bold text-gray-800">Create New Note</h3>
+            <button id="close-note-modal" class="text-gray-400 hover:text-gray-600">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <form id="note-form" class="space-y-6">
+            {% csrf_token %}
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                <select id="note-subject" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    {% for value, label in subjects %}
+                    <option value="{{ value }}">{{ label }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Title</label>
+                <input type="text" id="note-title" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Enter note title">
+            </div>
+            
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Content</label>
+                <textarea id="note-content" rows="12" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none" placeholder="Write your notes here..."></textarea>
+            </div>
+            
+            <div class="flex justify-end space-x-4">
+                <button type="button" id="cancel-note" class="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                    Cancel
+                </button>
+                <button type="submit" class="px-6 py-3 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors">
+                    Save Note
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const createNoteBtn = document.getElementById('create-note-btn');
+    const noteModal = document.getElementById('note-modal');
+    const closeModalBtn = document.getElementById('close-note-modal');
+    const cancelBtn = document.getElementById('cancel-note');
+    const noteForm = document.getElementById('note-form');
+
+    function openModal() {
+        noteModal.classList.remove('hidden');
+        noteModal.classList.add('flex');
+    }
+
+    function closeModal() {
+        noteModal.classList.add('hidden');
+        noteModal.classList.remove('flex');
+        noteForm.reset();
+    }
+
+    createNoteBtn.addEventListener('click', openModal);
+    closeModalBtn.addEventListener('click', closeModal);
+    cancelBtn.addEventListener('click', closeModal);
+
+    // Close modal when clicking outside
+    noteModal.addEventListener('click', function(e) {
+        if (e.target === noteModal) {
+            closeModal();
+        }
+    });
+
+    // Handle form submission
+    noteForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const title = document.getElementById('note-title').value;
+        const content = document.getElementById('note-content').value;
+        const subject = document.getElementById('note-subject').value;
+        
+        if (!title || !content) {
+            alert('Please fill in all fields');
+            return;
+        }
+        
+        // Send data to server
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('content', content);
+        formData.append('subject', subject);
+        
+        fetch('{% url "core:create_note" %}', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Note created successfully!');
+                closeModal();
+                location.reload(); // Refresh to show new note
+            } else {
+                alert('Error creating note: ' + (data.error || 'Unknown error'));
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Error creating note');
+        });
+    });
+    
+    // Subject card click handlers
+    document.querySelectorAll('.card-hover').forEach(card => {
+        card.addEventListener('click', function() {
+            const subject = this.querySelector('h3').textContent.toLowerCase();
+            console.log('Selected subject:', subject);
+            // Here you could filter notes by subject
+        });
+    });
+});
+</script>
+{% endblock %}

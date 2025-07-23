@@ -1,0 +1,256 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Flashcards - Study Companion{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <!-- Header -->
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">Flashcard Decks</h1>
+        <p class="text-gray-600 text-lg">Practice and master your study materials</p>
+    </div>
+
+    <div class="grid lg:grid-cols-4 gap-8">
+        <!-- Sidebar with Decks -->
+        <div class="lg:col-span-1">
+            <h2 class="text-xl font-bold text-gray-800 mb-4">Flashcard Decks</h2>
+            <div class="space-y-3">
+                {% for deck in decks %}
+                <button class="deck-btn w-full text-left p-4 rounded-xl bg-white shadow-md hover:shadow-lg transition-all border-l-4 border-blue-500" data-deck-id="{{ deck.id }}">
+                    <h3 class="font-semibold text-gray-800">{{ deck.name }}</h3>
+                    <p class="text-sm text-gray-600 mt-1">{{ deck.cards.count }} cards</p>
+                </button>
+                {% endfor %}
+                
+                <button class="w-full p-4 rounded-xl border-2 border-dashed border-gray-300 hover:border-blue-400 hover:bg-blue-50 transition-colors text-center">
+                    <i class="fas fa-plus text-gray-400 text-2xl mb-2"></i>
+                    <div class="text-gray-600 font-medium">Add New Deck</div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="lg:col-span-3">
+            <!-- Deck Info -->
+            <div id="deck-info" class="bg-white rounded-2xl p-8 shadow-lg mb-8">
+                <h2 id="deck-title" class="text-3xl font-bold text-gray-800 mb-4">Anatomy Basics</h2>
+                <p id="deck-description" class="text-gray-600 mb-6">Master the fundamentals of human anatomy with this comprehensive deck.</p>
+                
+                <!-- Card Display -->
+                <div class="relative mb-8">
+                    <div id="flashcard" class="w-full h-80 bg-gradient-to-br from-red-100 to-pink-100 rounded-2xl shadow-lg cursor-pointer perspective-1000">
+                        <div class="flashcard-inner w-full h-full relative transform-style-preserve-3d transition-transform duration-600">
+                            <div class="flashcard-front absolute inset-0 backface-hidden rounded-2xl p-8 flex flex-col justify-center items-center bg-gradient-to-br from-red-400 to-pink-500 text-white">
+                                <div class="mb-4">
+                                    <img src="https://images.pexels.com/photos/2378814/pexels-photo-2378814.jpeg" alt="Heart" class="w-32 h-32 object-cover rounded-xl shadow-lg">
+                                </div>
+                                <h3 id="card-question" class="text-2xl font-bold text-center">The human heart</h3>
+                            </div>
+                            <div class="flashcard-back absolute inset-0 backface-hidden rounded-2xl p-8 flex items-center justify-center bg-white transform-rotate-y-180">
+                                <p id="card-answer" class="text-lg text-gray-800 text-center leading-relaxed">The heart is a muscular organ that pumps blood throughout the body.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Flip Card Button -->
+                    <div class="text-center mt-4">
+                        <button id="flip-card" class="bg-blue-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-600 transition-colors">
+                            Flip Card
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Quiz Mode -->
+                <div id="quiz-mode" class="hidden">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Quiz Mode</h3>
+                    <div class="flex justify-center space-x-4 mb-6">
+                        <button id="guess-answer" class="bg-blue-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-blue-600 transition-colors">
+                            Guess the Answer
+                        </button>
+                    </div>
+                    
+                    <!-- Score Tracking -->
+                    <div id="score-section" class="text-center mb-6">
+                        <h4 class="text-lg font-bold text-gray-800 mb-2">Score Tracking</h4>
+                        <div class="text-3xl font-bold text-blue-600">
+                            Score: 85% (17/20)
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation -->
+                <div class="flex justify-between items-center">
+                    <button id="prev-card" class="bg-gray-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-gray-600 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
+                        <i class="fas fa-chevron-left mr-2"></i>Previous
+                    </button>
+                    
+                    <div class="text-center">
+                        <div class="text-sm text-gray-600 mb-2">Card <span id="current-card">1</span> of <span id="total-cards">3</span></div>
+                        <div class="w-64 bg-gray-200 rounded-full h-2">
+                            <div id="progress-bar" class="bg-blue-500 h-2 rounded-full transition-all duration-300" style="width: 33%"></div>
+                        </div>
+                    </div>
+                    
+                    <button id="next-card" class="bg-gray-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-gray-600 transition-colors">
+                        Next<i class="fas fa-chevron-right ml-2"></i>
+                    </button>
+                </div>
+                
+                <!-- Action Buttons -->
+                <div class="flex justify-center space-x-4 mt-8">
+                    <button id="add-to-notes" class="bg-gray-200 text-gray-800 px-6 py-3 rounded-full font-semibold hover:bg-gray-300 transition-colors">
+                        Add to Notes
+                    </button>
+                    <button id="end-quiz" class="bg-red-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-red-600 transition-colors">
+                        End Quiz
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+.perspective-1000 {
+    perspective: 1000px;
+}
+
+.transform-style-preserve-3d {
+    transform-style: preserve-3d;
+}
+
+.backface-hidden {
+    backface-visibility: hidden;
+}
+
+.transform-rotate-y-180 {
+    transform: rotateY(180deg);
+}
+
+.flashcard-inner.flipped {
+    transform: rotateY(180deg);
+}
+</style>
+
+<script>
+class FlashcardDeck {
+    constructor() {
+        this.currentDeck = null;
+        this.currentCard = 0;
+        this.cards = [
+            {
+                question: "The human heart",
+                answer: "The heart is a muscular organ that pumps blood throughout the body.",
+                image: "https://images.pexels.com/photos/2378814/pexels-photo-2378814.jpeg"
+            },
+            {
+                question: "What are the main chambers of the heart?",
+                answer: "The heart has four main chambers: left atrium, right atrium, left ventricle, and right ventricle.",
+                image: null
+            },
+            {
+                question: "What is the largest organ in the human body?",
+                answer: "The skin is the largest organ in the human body, covering the entire surface.",
+                image: null
+            }
+        ];
+        this.isFlipped = false;
+        
+        this.init();
+        this.bindEvents();
+    }
+    
+    init() {
+        this.showCard(0);
+        this.updateProgress();
+    }
+    
+    bindEvents() {
+        document.getElementById('flip-card').addEventListener('click', () => this.flipCard());
+        document.getElementById('prev-card').addEventListener('click', () => this.prevCard());
+        document.getElementById('next-card').addEventListener('click', () => this.nextCard());
+        document.getElementById('flashcard').addEventListener('click', () => this.flipCard());
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            switch(e.key) {
+                case 'Space':
+                    e.preventDefault();
+                    this.flipCard();
+                    break;
+                case 'ArrowLeft':
+                    this.prevCard();
+                    break;
+                case 'ArrowRight':
+                    this.nextCard();
+                    break;
+            }
+        });
+    }
+    
+    showCard(index) {
+        if (index < 0 || index >= this.cards.length) return;
+        
+        this.currentCard = index;
+        const card = this.cards[index];
+        
+        document.getElementById('card-question').textContent = card.question;
+        document.getElementById('card-answer').textContent = card.answer;
+        
+        // Reset flip state
+        this.isFlipped = false;
+        document.querySelector('.flashcard-inner').classList.remove('flipped');
+        
+        this.updateProgress();
+    }
+    
+    flipCard() {
+        const cardInner = document.querySelector('.flashcard-inner');
+        cardInner.classList.toggle('flipped');
+        this.isFlipped = !this.isFlipped;
+    }
+    
+    prevCard() {
+        if (this.currentCard > 0) {
+            this.showCard(this.currentCard - 1);
+        }
+    }
+    
+    nextCard() {
+        if (this.currentCard < this.cards.length - 1) {
+            this.showCard(this.currentCard + 1);
+        }
+    }
+    
+    updateProgress() {
+        document.getElementById('current-card').textContent = this.currentCard + 1;
+        document.getElementById('total-cards').textContent = this.cards.length;
+        
+        const progress = ((this.currentCard + 1) / this.cards.length) * 100;
+        document.getElementById('progress-bar').style.width = `${progress}%`;
+        
+        // Update navigation buttons
+        document.getElementById('prev-card').disabled = this.currentCard === 0;
+        document.getElementById('next-card').disabled = this.currentCard === this.cards.length - 1;
+    }
+}
+
+// Initialize flashcard deck
+document.addEventListener('DOMContentLoaded', () => {
+    new FlashcardDeck();
+    
+    // Deck selection
+    document.querySelectorAll('.deck-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.deck-btn').forEach(b => {
+                b.classList.remove('bg-blue-50', 'border-blue-500');
+                b.classList.add('border-gray-200');
+            });
+            
+            this.classList.add('bg-blue-50', 'border-blue-500');
+            this.classList.remove('border-gray-200');
+        });
+    });
+});
+</script>
+{% endblock %}

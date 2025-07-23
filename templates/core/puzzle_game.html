@@ -1,0 +1,352 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Flower Puzzle Game - Bloom{% endblock %}
+
+{% block extra_css %}
+<style>
+    .puzzle-piece {
+        position: absolute;
+        cursor: grab;
+        border: 2px solid #fff;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        transition: all 0.3s ease;
+    }
+    
+    .puzzle-piece:hover {
+        transform: scale(1.05);
+        z-index: 10;
+    }
+    
+    .puzzle-piece.dragging {
+        cursor: grabbing;
+        transform: rotate(5deg) scale(1.1);
+        z-index: 20;
+    }
+    
+    .puzzle-piece.correct {
+        border-color: #10b981;
+        box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+    }
+    
+    .puzzle-container {
+        position: relative;
+        border: 3px dashed #d1d5db;
+        border-radius: 1rem;
+        background: #f9fafb;
+    }
+    
+    .pieces-container {
+        min-height: 200px;
+        border: 2px dashed #e5e7eb;
+        border-radius: 1rem;
+        background: #ffffff;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center mb-8">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">Flower Puzzle</h1>
+        <p class="text-gray-600 mb-6">Drag and drop the pieces to complete the beautiful flower image!</p>
+        
+        <div class="flex justify-center items-center space-x-8 mb-6">
+            <div class="bg-white rounded-xl px-6 py-3 shadow-md">
+                <div class="text-2xl font-bold text-gray-800" id="completed-pieces">0</div>
+                <div class="text-sm text-gray-600">Completed</div>
+            </div>
+            <div class="bg-white rounded-xl px-6 py-3 shadow-md">
+                <div class="text-2xl font-bold text-gray-800" id="total-pieces">9</div>
+                <div class="text-sm text-gray-600">Total Pieces</div>
+            </div>
+            <div class="bg-white rounded-xl px-6 py-3 shadow-md">
+                <div class="text-2xl font-bold text-gray-800" id="timer">00:00</div>
+                <div class="text-sm text-gray-600">Time</div>
+            </div>
+        </div>
+        
+        <div class="flex justify-center space-x-4">
+            <button id="new-puzzle-btn" class="bg-blue-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-blue-600 transition-colors">
+                <i class="fas fa-refresh mr-2"></i>New Puzzle
+            </button>
+            <button id="hint-btn" class="bg-yellow-500 text-white px-6 py-3 rounded-full font-semibold hover:bg-yellow-600 transition-colors">
+                <i class="fas fa-lightbulb mr-2"></i>Hint
+            </button>
+        </div>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+        <!-- Puzzle Area -->
+        <div>
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Complete the Puzzle</h3>
+            <div id="puzzle-container" class="puzzle-container aspect-square relative">
+                <!-- Puzzle pieces will be placed here when correct -->
+            </div>
+        </div>
+
+        <!-- Pieces Area -->
+        <div>
+            <h3 class="text-xl font-bold text-gray-800 mb-4">Puzzle Pieces</h3>
+            <div id="pieces-container" class="pieces-container p-4 relative">
+                <!-- Scrambled pieces will appear here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+        <div class="bg-white rounded-2xl p-8 max-w-md mx-4 text-center">
+            <div class="text-6xl mb-4">🎉</div>
+            <h2 class="text-3xl font-bold text-gray-800 mb-4">Puzzle Complete!</h2>
+            <p class="text-gray-600 mb-6">Congratulations! You've completed the flower puzzle.</p>
+            <div class="space-y-2 mb-6">
+                <p><strong>Time:</strong> <span id="final-time">00:00</span></p>
+                <p><strong>Pieces:</strong> <span id="final-pieces">9/9</span></p>
+            </div>
+            <button id="play-again-btn" class="bg-green-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-green-600 transition-colors">
+                Play Again
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+class FlowerPuzzle {
+    constructor() {
+        this.puzzleImages = [
+            'https://images.pexels.com/photos/1379636/pexels-photo-1379636.jpeg',
+            'https://images.pexels.com/photos/1166209/pexels-photo-1166209.jpeg',
+            'https://images.pexels.com/photos/2378814/pexels-photo-2378814.jpeg',
+            'https://images.pexels.com/photos/1408221/pexels-photo-1408221.jpeg'
+        ];
+        
+        this.currentImage = this.puzzleImages[0];
+        this.gridSize = 3; // 3x3 puzzle
+        this.pieceSize = 120;
+        this.pieces = [];
+        this.completedPieces = 0;
+        this.startTime = Date.now();
+        this.timerInterval = null;
+        
+        this.init();
+        this.bindEvents();
+    }
+    
+    init() {
+        this.createPuzzle();
+        this.startTimer();
+    }
+    
+    bindEvents() {
+        document.getElementById('new-puzzle-btn').addEventListener('click', () => this.newPuzzle());
+        document.getElementById('hint-btn').addEventListener('click', () => this.showHint());
+        document.getElementById('play-again-btn').addEventListener('click', () => this.newPuzzle());
+    }
+    
+    createPuzzle() {
+        const puzzleContainer = document.getElementById('puzzle-container');
+        const piecesContainer = document.getElementById('pieces-container');
+        
+        puzzleContainer.innerHTML = '';
+        piecesContainer.innerHTML = '';
+        
+        this.pieces = [];
+        this.completedPieces = 0;
+        
+        // Create puzzle pieces
+        for (let row = 0; row < this.gridSize; row++) {
+            for (let col = 0; col < this.gridSize; col++) {
+                const piece = this.createPuzzlePiece(row, col);
+                this.pieces.push(piece);
+                piecesContainer.appendChild(piece.element);
+            }
+        }
+        
+        // Shuffle pieces
+        this.shufflePieces();
+        this.updateUI();
+    }
+    
+    createPuzzlePiece(row, col) {
+        const piece = document.createElement('div');
+        piece.className = 'puzzle-piece';
+        piece.style.width = `${this.pieceSize}px`;
+        piece.style.height = `${this.pieceSize}px`;
+        piece.style.backgroundImage = `url(${this.currentImage})`;
+        piece.style.backgroundSize = `${this.pieceSize * this.gridSize}px ${this.pieceSize * this.gridSize}px`;
+        piece.style.backgroundPosition = `-${col * this.pieceSize}px -${row * this.pieceSize}px`;
+        
+        const pieceData = {
+            element: piece,
+            correctRow: row,
+            correctCol: col,
+            currentRow: -1,
+            currentCol: -1,
+            isCorrect: false
+        };
+        
+        piece.addEventListener('mousedown', (e) => this.startDrag(e, pieceData));
+        piece.addEventListener('touchstart', (e) => this.startDrag(e, pieceData));
+        
+        return pieceData;
+    }
+    
+    shufflePieces() {
+        const container = document.getElementById('pieces-container');
+        const containerRect = container.getBoundingClientRect();
+        
+        this.pieces.forEach((piece, index) => {
+            const x = Math.random() * (containerRect.width - this.pieceSize);
+            const y = Math.random() * (containerRect.height - this.pieceSize);
+            
+            piece.element.style.left = `${x}px`;
+            piece.element.style.top = `${y}px`;
+        });
+    }
+    
+    startDrag(e, pieceData) {
+        e.preventDefault();
+        
+        const piece = pieceData.element;
+        piece.classList.add('dragging');
+        
+        const startX = e.clientX || e.touches[0].clientX;
+        const startY = e.clientY || e.touches[0].clientY;
+        const startLeft = parseInt(piece.style.left) || 0;
+        const startTop = parseInt(piece.style.top) || 0;
+        
+        const onMouseMove = (e) => {
+            const currentX = e.clientX || e.touches[0].clientX;
+            const currentY = e.clientY || e.touches[0].clientY;
+            
+            piece.style.left = `${startLeft + currentX - startX}px`;
+            piece.style.top = `${startTop + currentY - startY}px`;
+        };
+        
+        const onMouseUp = () => {
+            piece.classList.remove('dragging');
+            this.checkPiecePlacement(pieceData);
+            
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
+            document.removeEventListener('touchmove', onMouseMove);
+            document.removeEventListener('touchend', onMouseUp);
+        };
+        
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+        document.addEventListener('touchmove', onMouseMove);
+        document.addEventListener('touchend', onMouseUp);
+    }
+    
+    checkPiecePlacement(pieceData) {
+        const puzzleContainer = document.getElementById('puzzle-container');
+        const puzzleRect = puzzleContainer.getBoundingClientRect();
+        const pieceRect = pieceData.element.getBoundingClientRect();
+        
+        // Check if piece is over puzzle area
+        if (pieceRect.left >= puzzleRect.left && 
+            pieceRect.right <= puzzleRect.right &&
+            pieceRect.top >= puzzleRect.top && 
+            pieceRect.bottom <= puzzleRect.bottom) {
+            
+            // Calculate grid position
+            const relativeX = pieceRect.left - puzzleRect.left;
+            const relativeY = pieceRect.top - puzzleRect.top;
+            
+            const gridCol = Math.floor(relativeX / this.pieceSize);
+            const gridRow = Math.floor(relativeY / this.pieceSize);
+            
+            // Check if it's the correct position
+            if (gridRow === pieceData.correctRow && gridCol === pieceData.correctCol) {
+                this.placePieceCorrectly(pieceData, gridRow, gridCol);
+            }
+        }
+    }
+    
+    placePieceCorrectly(pieceData, row, col) {
+        if (pieceData.isCorrect) return;
+        
+        const puzzleContainer = document.getElementById('puzzle-container');
+        
+        pieceData.element.style.left = `${col * this.pieceSize}px`;
+        pieceData.element.style.top = `${row * this.pieceSize}px`;
+        pieceData.element.classList.add('correct');
+        pieceData.isCorrect = true;
+        
+        // Move to puzzle container
+        puzzleContainer.appendChild(pieceData.element);
+        
+        this.completedPieces++;
+        this.updateUI();
+        
+        if (this.completedPieces === this.pieces.length) {
+            this.puzzleComplete();
+        }
+    }
+    
+    showHint() {
+        // Highlight a random incorrect piece
+        const incorrectPieces = this.pieces.filter(p => !p.isCorrect);
+        if (incorrectPieces.length > 0) {
+            const randomPiece = incorrectPieces[Math.floor(Math.random() * incorrectPieces.length)];
+            randomPiece.element.style.border = '3px solid #f59e0b';
+            
+            setTimeout(() => {
+                randomPiece.element.style.border = '2px solid #fff';
+            }, 2000);
+        }
+    }
+    
+    newPuzzle() {
+        // Select random image
+        this.currentImage = this.puzzleImages[Math.floor(Math.random() * this.puzzleImages.length)];
+        this.completedPieces = 0;
+        this.startTime = Date.now();
+        
+        document.getElementById('success-modal').classList.add('hidden');
+        document.getElementById('success-modal').classList.remove('flex');
+        
+        this.createPuzzle();
+    }
+    
+    startTimer() {
+        this.timerInterval = setInterval(() => {
+            const elapsed = Math.floor((Date.now() - this.startTime) / 1000);
+            const minutes = Math.floor(elapsed / 60);
+            const seconds = elapsed % 60;
+            
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }, 1000);
+    }
+    
+    updateUI() {
+        document.getElementById('completed-pieces').textContent = this.completedPieces;
+        document.getElementById('total-pieces').textContent = this.pieces.length;
+    }
+    
+    puzzleComplete() {
+        clearInterval(this.timerInterval);
+        
+        const elapsed = Math.floor((Date.now() - this.startTime) / 1000);
+        const minutes = Math.floor(elapsed / 60);
+        const seconds = elapsed % 60;
+        
+        document.getElementById('final-time').textContent = 
+            `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        document.getElementById('final-pieces').textContent = `${this.completedPieces}/${this.pieces.length}`;
+        
+        setTimeout(() => {
+            document.getElementById('success-modal').classList.remove('hidden');
+            document.getElementById('success-modal').classList.add('flex');
+        }, 1000);
+    }
+}
+
+// Initialize puzzle when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    new FlowerPuzzle();
+});
+</script>
+{% endblock %}

@@ -1,0 +1,212 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Clinical Skills - Nursing Study Aid{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">Clinical Skills</h1>
+        <p class="text-gray-600 text-lg">Master essential nursing procedures and techniques</p>
+    </div>
+
+    <!-- Skill Categories -->
+    <div class="mb-12">
+        <h2 class="text-2xl font-bold text-gray-800 mb-8">Skill Categories</h2>
+        <div class="grid md:grid-cols-3 lg:grid-cols-6 gap-6">
+            <div class="card-hover bg-gradient-to-br from-blue-100 to-indigo-100 rounded-2xl p-6 text-center cursor-pointer" data-category="basic">
+                <div class="w-16 h-16 bg-blue-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-hand-sparkles text-blue-600 text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-2">Basic Skills</h3>
+                <p class="text-sm text-gray-600">Fundamental nursing procedures</p>
+            </div>
+
+            <div class="card-hover bg-gradient-to-br from-green-100 to-teal-100 rounded-2xl p-6 text-center cursor-pointer" data-category="assessment">
+                <div class="w-16 h-16 bg-green-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-stethoscope text-green-600 text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-2">Assessment</h3>
+                <p class="text-sm text-gray-600">Patient evaluation techniques</p>
+            </div>
+
+            <div class="card-hover bg-gradient-to-br from-purple-100 to-pink-100 rounded-2xl p-6 text-center cursor-pointer" data-category="medication">
+                <div class="w-16 h-16 bg-purple-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-syringe text-purple-600 text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-2">Medication</h3>
+                <p class="text-sm text-gray-600">Drug administration methods</p>
+            </div>
+
+            <div class="card-hover bg-gradient-to-br from-orange-100 to-red-100 rounded-2xl p-6 text-center cursor-pointer" data-category="procedures">
+                <div class="w-16 h-16 bg-orange-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-procedures text-orange-600 text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-2">Procedures</h3>
+                <p class="text-sm text-gray-600">Clinical interventions</p>
+            </div>
+
+            <div class="card-hover bg-gradient-to-br from-red-100 to-pink-100 rounded-2xl p-6 text-center cursor-pointer" data-category="emergency">
+                <div class="w-16 h-16 bg-red-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-heartbeat text-red-600 text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-2">Emergency</h3>
+                <p class="text-sm text-gray-600">Critical care skills</p>
+            </div>
+
+            <div class="card-hover bg-gradient-to-br from-yellow-100 to-orange-100 rounded-2xl p-6 text-center cursor-pointer" data-category="communication">
+                <div class="w-16 h-16 bg-yellow-200 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-comments text-yellow-600 text-2xl"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-2">Communication</h3>
+                <p class="text-sm text-gray-600">Patient interaction skills</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Skills List -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {% for skill in skills %}
+        <div class="card-hover bg-white rounded-2xl p-6 shadow-lg skill-card" data-category="{{ skill.category }}">
+            <div class="flex items-center justify-between mb-4">
+                <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
+                    {{ skill.get_category_display }}
+                </span>
+                <span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-sm">
+                    {{ skill.get_competency_level_display }}
+                </span>
+            </div>
+            
+            <h3 class="text-xl font-bold text-gray-800 mb-3">{{ skill.name }}</h3>
+            <p class="text-gray-600 mb-4 leading-relaxed">{{ skill.description }}</p>
+            
+            <button class="skill-details-btn w-full bg-blue-500 text-white py-3 rounded-lg font-semibold hover:bg-blue-600 transition-colors" 
+                    data-skill-id="{{ skill.id }}"
+                    data-skill-name="{{ skill.name }}"
+                    data-skill-steps="{{ skill.steps }}"
+                    data-skill-safety="{{ skill.safety_considerations }}"
+                    data-skill-equipment="{{ skill.equipment_needed }}">
+                View Details
+            </button>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Skill Details Modal -->
+<div id="skill-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-2xl p-8 max-w-4xl mx-4 w-full max-h-screen overflow-y-auto">
+        <div class="flex justify-between items-center mb-6">
+            <h3 id="skill-modal-title" class="text-3xl font-bold text-gray-800"></h3>
+            <button id="close-skill-modal" class="text-gray-400 hover:text-gray-600">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="grid md:grid-cols-2 gap-8">
+            <div>
+                <h4 class="text-xl font-bold text-gray-800 mb-4">Procedure Steps</h4>
+                <div id="skill-steps" class="bg-blue-50 rounded-xl p-6 mb-6">
+                    <!-- Steps will be populated here -->
+                </div>
+                
+                <h4 class="text-xl font-bold text-gray-800 mb-4">Equipment Needed</h4>
+                <div id="skill-equipment" class="bg-green-50 rounded-xl p-6">
+                    <!-- Equipment will be populated here -->
+                </div>
+            </div>
+            
+            <div>
+                <h4 class="text-xl font-bold text-gray-800 mb-4">Safety Considerations</h4>
+                <div id="skill-safety" class="bg-red-50 rounded-xl p-6 mb-6">
+                    <!-- Safety info will be populated here -->
+                </div>
+                
+                <div class="bg-yellow-50 rounded-xl p-6">
+                    <h4 class="text-lg font-bold text-yellow-800 mb-3">
+                        <i class="fas fa-exclamation-triangle mr-2"></i>Important Notes
+                    </h4>
+                    <ul class="text-yellow-700 space-y-2">
+                        <li>• Always verify patient identity before procedures</li>
+                        <li>• Maintain sterile technique when indicated</li>
+                        <li>• Document all procedures thoroughly</li>
+                        <li>• Report any complications immediately</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="mt-8 flex justify-center space-x-4">
+            <button class="bg-blue-500 text-white px-6 py-3 rounded-lg hover:bg-blue-600 transition-colors">
+                <i class="fas fa-bookmark mr-2"></i>Save to Notes
+            </button>
+            <button class="bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition-colors">
+                <i class="fas fa-check mr-2"></i>Mark as Practiced
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const skillModal = document.getElementById('skill-modal');
+    const closeModalBtn = document.getElementById('close-skill-modal');
+    const skillDetailsButtons = document.querySelectorAll('.skill-details-btn');
+    
+    // Category filtering
+    document.querySelectorAll('[data-category]').forEach(categoryBtn => {
+        if (categoryBtn.classList.contains('cursor-pointer')) {
+            categoryBtn.addEventListener('click', function() {
+                const category = this.dataset.category;
+                filterSkillsByCategory(category);
+            });
+        }
+    });
+    
+    function filterSkillsByCategory(category) {
+        document.querySelectorAll('.skill-card').forEach(card => {
+            if (card.dataset.category === category || category === 'all') {
+                card.style.display = 'block';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+    
+    // Skill details modal
+    skillDetailsButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const skillName = this.dataset.skillName;
+            const skillSteps = this.dataset.skillSteps;
+            const skillSafety = this.dataset.skillSafety;
+            const skillEquipment = this.dataset.skillEquipment;
+            
+            document.getElementById('skill-modal-title').textContent = skillName;
+            
+            // Format steps
+            const stepsArray = skillSteps.split('\n');
+            const stepsHtml = stepsArray.map(step => `<div class="mb-2 flex items-start"><span class="text-blue-600 font-bold mr-3">${step.split('.')[0]}.</span><span>${step.split('.').slice(1).join('.')}</span></div>`).join('');
+            document.getElementById('skill-steps').innerHTML = stepsHtml;
+            
+            document.getElementById('skill-safety').innerHTML = `<p class="text-red-700">${skillSafety}</p>`;
+            document.getElementById('skill-equipment').innerHTML = `<p class="text-green-700">${skillEquipment}</p>`;
+            
+            skillModal.classList.remove('hidden');
+            skillModal.classList.add('flex');
+        });
+    });
+    
+    closeModalBtn.addEventListener('click', function() {
+        skillModal.classList.add('hidden');
+        skillModal.classList.remove('flex');
+    });
+    
+    // Close modal when clicking outside
+    skillModal.addEventListener('click', function(e) {
+        if (e.target === skillModal) {
+            skillModal.classList.add('hidden');
+            skillModal.classList.remove('flex');
+        }
+    });
+});
+</script>
+{% endblock %}

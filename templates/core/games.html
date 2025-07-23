@@ -1,0 +1,162 @@
+{% extends 'core/base.html' %}
+
+{% block title %}Games - Bloom{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center mb-16">
+        <h1 class="text-5xl font-bold text-gray-800 mb-6">
+            Fun <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-600">Games</span>
+        </h1>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+            Play entertaining games while learning about flowers and nature. Challenge yourself and have fun!
+        </p>
+    </div>
+
+    <!-- Game Cards Grid -->
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Memory Game -->
+        <div class="card-hover bg-gradient-to-br from-pink-100 to-red-100 rounded-2xl p-8 text-center shadow-lg">
+            <div class="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md">
+                <i class="fas fa-brain text-3xl text-pink-500"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Memory Match</h3>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+                Test your memory by matching pairs of beautiful flower cards. Can you find all the matches?
+            </p>
+            <div class="flex items-center justify-center space-x-4 mb-6 text-sm text-gray-500">
+                <span><i class="fas fa-clock mr-1"></i> 5–10 min</span>
+                <span><i class="fas fa-star mr-1"></i> Easy</span>
+            </div>
+            <a href="{% url 'core:memory_game' %}" class="inline-block w-full bg-pink-500 text-white py-4 rounded-xl font-semibold text-lg hover:bg-pink-600 transition-all hover:shadow-lg">
+                Play Now
+            </a>
+        </div>
+
+        <!-- Quiz Game -->
+        <div class="card-hover bg-gradient-to-br from-blue-100 to-cyan-100 rounded-2xl p-8 text-center shadow-lg">
+            <div class="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md">
+                <i class="fas fa-question-circle text-3xl text-blue-500"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Flower Quiz</h3>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+                Challenge your knowledge about flowers, gardening, and plant care with our interactive quiz.
+            </p>
+            <div class="flex items-center justify-center space-x-4 mb-6 text-sm text-gray-500">
+                <span><i class="fas fa-clock mr-1"></i> 3–5 min</span>
+                <span><i class="fas fa-star mr-1"></i> Medium</span>
+            </div>
+            <a href="{% url 'core:quiz_game' %}" class="inline-block w-full bg-blue-500 text-white py-4 rounded-xl font-semibold text-lg hover:bg-blue-600 transition-all hover:shadow-lg">
+                Start Quiz
+            </a>
+        </div>
+
+        <!-- Puzzle Game -->
+        <div class="card-hover bg-gradient-to-br from-purple-200 via-pink-100 to-yellow-100 rounded-2xl p-8 text-center shadow-lg">
+            <div class="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md">
+                <i class="fas fa-puzzle-piece text-3xl text-purple-500"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Flower Puzzle</h3>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+                Piece together beautiful flower images in this relaxing jigsaw puzzle game.
+            </p>
+            <div class="flex items-center justify-center space-x-4 mb-6 text-sm text-gray-500">
+                <span><i class="fas fa-clock mr-1"></i> 10–15 min</span>
+                <span><i class="fas fa-star mr-1"></i> Medium</span>
+            </div>
+            <a href="{% url 'core:puzzle_game' %}" class="inline-block w-full bg-purple-500 text-white py-4 rounded-xl font-semibold text-lg hover:bg-purple-600 transition-all hover:shadow-lg">
+                Play Puzzle
+            </a>
+        </div>
+
+        <!-- Word Search -->
+        <div class="card-hover bg-gradient-to-br from-purple-100 to-indigo-100 rounded-2xl p-8 text-center shadow-lg">
+            <div class="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md">
+                <i class="fas fa-search text-3xl text-purple-500"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Word Search</h3>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+                Find hidden flower names in our word search puzzle. Perfect for vocabulary building!
+            </p>
+            <div class="flex items-center justify-center space-x-4 mb-6 text-sm text-gray-500">
+                <span><i class="fas fa-clock mr-1"></i> 5–8 min</span>
+                <span><i class="fas fa-star mr-1"></i> Easy</span>
+            </div>
+            <a href="{% url 'core:word_search' %}" class="inline-block w-full bg-purple-500 text-white py-4 rounded-xl font-semibold text-lg hover:bg-purple-600 transition-all hover:shadow-lg">
+                Play Word Search
+            </a>
+        </div>
+
+        <!-- Trivia Challenge -->
+        <div class="card-hover bg-gradient-to-br from-yellow-100 to-orange-100 rounded-2xl p-8 text-center shadow-lg">
+            <div class="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md">
+                <i class="fas fa-trophy text-3xl text-yellow-500"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Trivia Challenge</h3>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+                Compete with others in our daily trivia challenge. Climb the leaderboard!
+            </p>
+            <div class="flex items-center justify-center space-x-4 mb-6 text-sm text-gray-500">
+                <span><i class="fas fa-clock mr-1"></i> 2–3 min</span>
+                <span><i class="fas fa-star mr-1"></i> Hard</span>
+            </div>
+            <div class="inline-block w-full bg-gray-400 text-white py-4 rounded-xl font-semibold text-lg cursor-not-allowed">
+                Coming Soon
+            </div>
+        </div>
+
+        <!-- Garden Designer -->
+        <div class="card-hover bg-gradient-to-br from-rose-200 via-pink-100 to-yellow-100 rounded-2xl p-8 text-center shadow-lg">
+            <div class="w-20 h-20 bg-white rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-md">
+                <i class="fas fa-seedling text-3xl text-green-500"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">Garden Designer</h3>
+            <p class="text-gray-600 mb-6 leading-relaxed">
+                Design your dream garden by arranging different flowers and plants in this creative game.
+            </p>
+            <div class="flex items-center justify-center space-x-4 mb-6 text-sm text-gray-500">
+                <span><i class="fas fa-clock mr-1"></i> 15–20 min</span>
+                <span><i class="fas fa-star mr-1"></i> Creative</span>
+            </div>
+            <a href="{% url 'core:garden_designer' %}" class="inline-block w-full bg-green-500 text-white py-4 rounded-xl font-semibold text-lg hover:bg-green-600 transition-all hover:shadow-lg">
+                Design Garden
+            </a>
+        </div>
+    </div>
+
+    <!-- Game Stats Section -->
+    <div class="mt-20 bg-white rounded-3xl p-8 shadow-lg">
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-8">Your Gaming Stats</h2>
+        <div class="grid md:grid-cols-4 gap-6">
+            <div class="text-center">
+                <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-gamepad text-blue-500 text-xl"></i>
+                </div>
+                <div class="text-3xl font-bold text-gray-800">0</div>
+                <p class="text-gray-600">Games Played</p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-trophy text-green-500 text-xl"></i>
+                </div>
+                <div class="text-3xl font-bold text-gray-800">0</div>
+                <p class="text-gray-600">High Score</p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-clock text-purple-500 text-xl"></i>
+                </div>
+                <div class="text-3xl font-bold text-gray-800">0m</div>
+                <p class="text-gray-600">Time Played</p>
+            </div>
+            <div class="text-center">
+                <div class="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-star text-yellow-500 text-xl"></i>
+                </div>
+                <div class="text-3xl font-bold text-gray-800">0</div>
+                <p class="text-gray-600">Achievements</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

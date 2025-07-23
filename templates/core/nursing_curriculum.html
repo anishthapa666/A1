@@ -1,0 +1,761 @@
+{% extends 'core/base.html' %}
+
+{% block title %}B.Sc. Nursing Curriculum - Study Guide{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-bold text-gray-800 mb-4">B.Sc. Nursing Curriculum</h1>
+        <p class="text-gray-600 text-lg">TU Institute of Medicine (IOM) - Complete 4-Year Program</p>
+        <div class="mt-4 inline-flex items-center px-4 py-2 bg-blue-100 text-blue-800 rounded-full">
+            <i class="fas fa-graduation-cap mr-2"></i>
+            30 Subjects across 4 Years
+        </div>
+    </div>
+
+    <!-- Year Tabs -->
+    <div class="mb-8">
+        <div class="flex flex-wrap justify-center space-x-2 mb-8">
+            <button class="year-tab active px-6 py-3 rounded-full font-semibold transition-all" data-year="1">
+                First Year
+            </button>
+            <button class="year-tab px-6 py-3 rounded-full font-semibold transition-all" data-year="2">
+                Second Year
+            </button>
+            <button class="year-tab px-6 py-3 rounded-full font-semibold transition-all" data-year="3">
+                Third Year
+            </button>
+            <button class="year-tab px-6 py-3 rounded-full font-semibold transition-all" data-year="4">
+                Fourth Year
+            </button>
+        </div>
+    </div>
+
+    <!-- First Year Content -->
+    <div id="year-1" class="year-content">
+        <div class="bg-white rounded-3xl shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-seedling text-green-500 mr-3"></i>
+                First Year - Foundation Sciences
+            </h2>
+            <p class="text-gray-600 mb-8">Building fundamental knowledge in basic sciences and nursing principles</p>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- BSN1 - Anatomy -->
+                <div class="subject-card bg-gradient-to-br from-red-50 to-pink-50 rounded-2xl p-6 border border-red-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-gray-800">Human Anatomy</h3>
+                        <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-medium">BSN1</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-2">
+                            <span>Internal: 20</span>
+                            <span>Final: 80</span>
+                            <span class="font-bold">Total: 100</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-red-500 h-2 rounded-full" style="width: 20%"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <button class="notes-btn block w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition-colors text-center" data-subject="anatomy">
+                            <i class="fas fa-book mr-2"></i>Download Notes
+                        </button>
+                        <button class="questions-btn block w-full bg-red-100 text-red-700 py-2 rounded-lg hover:bg-red-200 transition-colors text-center" data-subject="anatomy">
+                            <i class="fas fa-question-circle mr-2"></i>Past Questions
+                        </button>
+                    </div>
+                </div>
+
+                <!-- BSN2 - Physiology -->
+                <div class="subject-card bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-6 border border-blue-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-gray-800">Human Physiology</h3>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">BSN2</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-2">
+                            <span>Internal: 20</span>
+                            <span>Final: 80</span>
+                            <span class="font-bold">Total: 100</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-blue-500 h-2 rounded-full" style="width: 20%"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <button class="notes-btn block w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors text-center" data-subject="physiology">
+                            <i class="fas fa-book mr-2"></i>Download Notes
+                        </button>
+                        <button class="questions-btn block w-full bg-blue-100 text-blue-700 py-2 rounded-lg hover:bg-blue-200 transition-colors text-center" data-subject="physiology">
+                            <i class="fas fa-question-circle mr-2"></i>Past Questions
+                        </button>
+                    </div>
+                </div>
+
+                <!-- BSN3 - Biochemistry -->
+                <div class="subject-card bg-gradient-to-br from-green-50 to-teal-50 rounded-2xl p-6 border border-green-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-gray-800">Biochemistry</h3>
+                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">BSN3</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-2">
+                            <span>Internal: 20</span>
+                            <span>Final: 80</span>
+                            <span class="font-bold">Total: 100</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full" style="width: 20%"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <button class="notes-btn block w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors text-center" data-subject="biochemistry">
+                            <i class="fas fa-book mr-2"></i>Download Notes
+                        </button>
+                        <button class="questions-btn block w-full bg-green-100 text-green-700 py-2 rounded-lg hover:bg-green-200 transition-colors text-center" data-subject="biochemistry">
+                            <i class="fas fa-question-circle mr-2"></i>Past Questions
+                        </button>
+                    </div>
+                </div>
+
+                <!-- BSN4 - Microbiology -->
+                <div class="subject-card bg-gradient-to-br from-purple-50 to-indigo-50 rounded-2xl p-6 border border-purple-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-gray-800">Microbiology</h3>
+                        <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">BSN4</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-2">
+                            <span>Internal: 20</span>
+                            <span>Final: 80</span>
+                            <span class="font-bold">Total: 100</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-purple-500 h-2 rounded-full" style="width: 20%"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <button class="notes-btn block w-full bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600 transition-colors text-center" data-subject="microbiology">
+                            <i class="fas fa-book mr-2"></i>Download Notes
+                        </button>
+                        <button class="questions-btn block w-full bg-purple-100 text-purple-700 py-2 rounded-lg hover:bg-purple-200 transition-colors text-center" data-subject="microbiology">
+                            <i class="fas fa-question-circle mr-2"></i>Past Questions
+                        </button>
+                    </div>
+                </div>
+
+                <!-- BSN5 - Fundamentals of Nursing -->
+                <div class="subject-card bg-gradient-to-br from-pink-50 to-rose-50 rounded-2xl p-6 border border-pink-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-gray-800">Fundamentals of Nursing</h3>
+                        <span class="px-3 py-1 bg-pink-100 text-pink-800 rounded-full text-sm font-medium">BSN5</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-2">
+                            <span>Internal: 75</span>
+                            <span>Final: 25</span>
+                            <span class="font-bold">Total: 100</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-pink-500 h-2 rounded-full" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <button class="notes-btn block w-full bg-pink-500 text-white py-2 rounded-lg hover:bg-pink-600 transition-colors text-center" data-subject="fundamentals">
+                            <i class="fas fa-book mr-2"></i>Download Notes
+                        </button>
+                        <button class="questions-btn block w-full bg-pink-100 text-pink-700 py-2 rounded-lg hover:bg-pink-200 transition-colors text-center" data-subject="fundamentals">
+                            <i class="fas fa-question-circle mr-2"></i>Past Questions
+                        </button>
+                    </div>
+                </div>
+
+                <!-- BSN6 - Health Assessment -->
+                <div class="subject-card bg-gradient-to-br from-orange-50 to-yellow-50 rounded-2xl p-6 border border-orange-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-gray-800">Health Assessment</h3>
+                        <span class="px-3 py-1 bg-orange-100 text-orange-800 rounded-full text-sm font-medium">BSN6</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-2">
+                            <span>Internal: 75</span>
+                            <span>Final: 25</span>
+                            <span class="font-bold">Total: 100</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-orange-500 h-2 rounded-full" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <button class="notes-btn block w-full bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition-colors text-center" data-subject="health-assessment">
+                            <i class="fas fa-book mr-2"></i>Download Notes
+                        </button>
+                        <button class="questions-btn block w-full bg-orange-100 text-orange-700 py-2 rounded-lg hover:bg-orange-200 transition-colors text-center" data-subject="health-assessment">
+                            <i class="fas fa-question-circle mr-2"></i>Past Questions
+                        </button>
+                    </div>
+                </div>
+
+                <!-- BSN7 - Psychology -->
+                <div class="subject-card bg-gradient-to-br from-indigo-50 to-blue-50 rounded-2xl p-6 border border-indigo-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-gray-800">Psychology</h3>
+                        <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full text-sm font-medium">BSN7</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-2">
+                            <span>Internal: 20</span>
+                            <span>Final: 80</span>
+                            <span class="font-bold">Total: 100</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-indigo-500 h-2 rounded-full" style="width: 20%"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <button class="notes-btn block w-full bg-indigo-500 text-white py-2 rounded-lg hover:bg-indigo-600 transition-colors text-center" data-subject="psychology">
+                            <i class="fas fa-book mr-2"></i>Download Notes
+                        </button>
+                        <button class="questions-btn block w-full bg-indigo-100 text-indigo-700 py-2 rounded-lg hover:bg-indigo-200 transition-colors text-center" data-subject="psychology">
+                            <i class="fas fa-question-circle mr-2"></i>Past Questions
+                        </button>
+                    </div>
+                </div>
+
+                <!-- BSN8 - English -->
+                <div class="subject-card bg-gradient-to-br from-gray-50 to-slate-50 rounded-2xl p-6 border border-gray-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-gray-800">English</h3>
+                        <span class="px-3 py-1 bg-gray-100 text-gray-800 rounded-full text-sm font-medium">BSN8</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-2">
+                            <span>Internal: 20</span>
+                            <span>Final: 80</span>
+                            <span class="font-bold">Total: 100</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-gray-500 h-2 rounded-full" style="width: 20%"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <button class="notes-btn block w-full bg-gray-500 text-white py-2 rounded-lg hover:bg-gray-600 transition-colors text-center" data-subject="english">
+                            <i class="fas fa-book mr-2"></i>Download Notes
+                        </button>
+                        <button class="questions-btn block w-full bg-gray-100 text-gray-700 py-2 rounded-lg hover:bg-gray-200 transition-colors text-center" data-subject="english">
+                            <i class="fas fa-question-circle mr-2"></i>Past Questions
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Second Year Content -->
+    <div id="year-2" class="year-content hidden">
+        <div class="bg-white rounded-3xl shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-user-md text-blue-500 mr-3"></i>
+                Second Year - Clinical Foundation
+            </h2>
+            <p class="text-gray-600 mb-8">Advanced nursing concepts and clinical applications</p>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- BSN9 - Pathophysiology -->
+                <div class="subject-card bg-gradient-to-br from-red-50 to-pink-50 rounded-2xl p-6 border border-red-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-gray-800">Pathophysiology</h3>
+                        <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full text-sm font-medium">BSN9</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-2">
+                            <span>Internal: 20</span>
+                            <span>Final: 80</span>
+                            <span class="font-bold">Total: 100</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-red-500 h-2 rounded-full" style="width: 20%"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <button class="notes-btn block w-full bg-red-500 text-white py-2 rounded-lg hover:bg-red-600 transition-colors text-center" data-subject="pathophysiology">
+                            <i class="fas fa-book mr-2"></i>Download Notes
+                        </button>
+                        <button class="questions-btn block w-full bg-red-100 text-red-700 py-2 rounded-lg hover:bg-red-200 transition-colors text-center" data-subject="pathophysiology">
+                            <i class="fas fa-question-circle mr-2"></i>Past Questions
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Continue with other second year subjects... -->
+                <!-- BSN10 - Pharmacology -->
+                <div class="subject-card bg-gradient-to-br from-blue-50 to-cyan-50 rounded-2xl p-6 border border-blue-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-gray-800">Pharmacology</h3>
+                        <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">BSN10</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-2">
+                            <span>Internal: 20</span>
+                            <span>Final: 80</span>
+                            <span class="font-bold">Total: 100</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-blue-500 h-2 rounded-full" style="width: 20%"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <button class="notes-btn block w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors text-center" data-subject="pharmacology">
+                            <i class="fas fa-book mr-2"></i>Download Notes
+                        </button>
+                        <button class="questions-btn block w-full bg-blue-100 text-blue-700 py-2 rounded-lg hover:bg-blue-200 transition-colors text-center" data-subject="pharmacology">
+                            <i class="fas fa-question-circle mr-2"></i>Past Questions
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Add remaining second year subjects following the same pattern -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Third Year Content -->
+    <div id="year-3" class="year-content hidden">
+        <div class="bg-white rounded-3xl shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-hospital text-purple-500 mr-3"></i>
+                Third Year - Specialized Nursing
+            </h2>
+            <p class="text-gray-600 mb-8">Advanced clinical specializations and community health</p>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- Add third year subjects here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Fourth Year Content -->
+    <div id="year-4" class="year-content hidden">
+        <div class="bg-white rounded-3xl shadow-lg p-8 mb-8">
+            <h2 class="text-3xl font-bold text-gray-800 mb-6 flex items-center">
+                <i class="fas fa-graduation-cap text-green-500 mr-3"></i>
+                Fourth Year - Leadership & Research
+            </h2>
+            <p class="text-gray-600 mb-8">Management, education, and research in nursing practice</p>
+            
+            <div class="grid md:grid-cols-2 gap-6">
+                <!-- BSN25 - Management & Health Economics -->
+                <div class="subject-card bg-gradient-to-br from-green-50 to-teal-50 rounded-2xl p-6 border border-green-100">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-xl font-bold text-gray-800">Management & Health Economics</h3>
+                        <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-medium">BSN25</span>
+                    </div>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-sm text-gray-600 mb-2">
+                            <span>Internal: 20</span>
+                            <span>Final: 80</span>
+                            <span class="font-bold">Total: 100</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full" style="width: 20%"></div>
+                        </div>
+                    </div>
+                    <div class="space-y-3">
+                        <button class="notes-btn w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors" data-subject="management-economics">
+                            <i class="fas fa-book mr-2"></i>Download Notes
+                        </button>
+                        <button class="questions-btn w-full bg-green-100 text-green-700 py-2 rounded-lg hover:bg-green-200 transition-colors" data-subject="management-economics">
+                            <i class="fas fa-question-circle mr-2"></i>Past Questions
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Continue with other fourth year subjects... -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Study Resources Section -->
+    <div class="bg-gradient-to-r from-blue-100 to-purple-100 rounded-3xl p-8 mt-12">
+        <h2 class="text-3xl font-bold text-gray-800 mb-8 text-center">Study Resources</h2>
+        <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-white rounded-2xl p-6 text-center">
+                <i class="fas fa-file-pdf text-4xl text-red-500 mb-4"></i>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Complete Syllabus PDF</h3>
+                <p class="text-gray-600 mb-4">Official TU IOM curriculum document</p>
+                <button class="notes-btn bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition-colors" data-subject="complete-syllabus">
+                    Download PDF
+                </button>
+            </div>
+            
+            <div class="bg-white rounded-2xl p-6 text-center">
+                <i class="fas fa-users text-4xl text-blue-500 mb-4"></i>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Study Groups</h3>
+                <p class="text-gray-600 mb-4">Join Facebook groups for resources</p>
+                <a href="https://www.facebook.com/groups/bscnursing1year" target="_blank" class="bg-blue-500 text-white px-6 py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                    Join Groups
+                </a>
+            </div>
+            
+            <div class="bg-white rounded-2xl p-6 text-center">
+                <i class="fas fa-question-circle text-4xl text-green-500 mb-4"></i>
+                <h3 class="text-xl font-bold text-gray-800 mb-2">Question Banks</h3>
+                <p class="text-gray-600 mb-4">MCQs and past exam papers</p>
+                <button class="questions-btn bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition-colors" data-subject="question-bank">
+                    Access Banks
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Notes Modal -->
+<div id="notes-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-2xl p-8 max-w-4xl mx-4 w-full max-h-screen overflow-y-auto">
+        <div class="flex justify-between items-center mb-6">
+            <h3 id="notes-modal-title" class="text-2xl font-bold text-gray-800"></h3>
+            <button id="close-notes-modal" class="text-gray-400 hover:text-gray-600">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <div id="notes-content">
+            <!-- Notes content will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<!-- Questions Modal -->
+<div id="questions-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-2xl p-8 max-w-4xl mx-4 w-full max-h-screen overflow-y-auto">
+        <div class="flex justify-between items-center mb-6">
+            <h3 id="questions-modal-title" class="text-2xl font-bold text-gray-800"></h3>
+            <button id="close-questions-modal" class="text-gray-400 hover:text-gray-600">
+                <i class="fas fa-times text-xl"></i>
+            </button>
+        </div>
+        
+        <div id="questions-content">
+            <!-- Questions content will be loaded here -->
+        </div>
+    </div>
+</div>
+
+<style>
+.year-tab {
+    background: #f3f4f6;
+    color: #6b7280;
+}
+
+.year-tab.active {
+    background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    color: white;
+}
+
+.year-tab:hover:not(.active) {
+    background: #e5e7eb;
+}
+
+.subject-card {
+    transition: all 0.3s ease;
+}
+
+.subject-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Year tab functionality
+    const yearTabs = document.querySelectorAll('.year-tab');
+    const yearContents = document.querySelectorAll('.year-content');
+    
+    yearTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const year = this.dataset.year;
+            
+            // Update active tab
+            yearTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            // Show corresponding content
+            yearContents.forEach(content => {
+                content.classList.add('hidden');
+            });
+            document.getElementById(`year-${year}`).classList.remove('hidden');
+        });
+    });
+    
+    // Notes and Questions modals
+    const notesModal = document.getElementById('notes-modal');
+    const questionsModal = document.getElementById('questions-modal');
+    const closeNotesBtn = document.getElementById('close-notes-modal');
+    const closeQuestionsBtn = document.getElementById('close-questions-modal');
+    
+    // Notes button handlers
+    document.querySelectorAll('.notes-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const subject = this.dataset.subject;
+            loadNotes(subject);
+            notesModal.classList.remove('hidden');
+            notesModal.classList.add('flex');
+        });
+    });
+    
+    // Questions button handlers
+    document.querySelectorAll('.questions-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const subject = this.dataset.subject;
+            loadQuestions(subject);
+            questionsModal.classList.remove('hidden');
+            questionsModal.classList.add('flex');
+        });
+    });
+    
+    // Close modal handlers
+    closeNotesBtn.addEventListener('click', function() {
+        notesModal.classList.add('hidden');
+        notesModal.classList.remove('flex');
+    });
+    
+    closeQuestionsBtn.addEventListener('click', function() {
+        questionsModal.classList.add('hidden');
+        questionsModal.classList.remove('flex');
+    });
+    
+    // Close modals when clicking outside
+    [notesModal, questionsModal].forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        });
+    });
+    
+    function loadNotes(subject) {
+        const notesData = {
+            'anatomy': {
+                title: 'Human Anatomy Notes',
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-red-50 rounded-lg p-6">
+                            <h4 class="text-lg font-bold text-red-800 mb-4">Chapter 1: Introduction to Anatomy</h4>
+                            <ul class="space-y-2 text-red-700">
+                                <li>• Anatomical position and directional terms</li>
+                                <li>• Body planes and sections</li>
+                                <li>• Body cavities and regions</li>
+                                <li>• Levels of structural organization</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-red-50 rounded-lg p-6">
+                            <h4 class="text-lg font-bold text-red-800 mb-4">Chapter 2: Skeletal System</h4>
+                            <ul class="space-y-2 text-red-700">
+                                <li>• Bone structure and classification</li>
+                                <li>• Axial and appendicular skeleton</li>
+                                <li>• Joint classifications and movements</li>
+                                <li>• Bone development and repair</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-red-50 rounded-lg p-6">
+                            <h4 class="text-lg font-bold text-red-800 mb-4">Download Resources</h4>
+                            <div class="space-y-3">
+                                <button onclick="downloadPDF('anatomy-notes')" class="block w-full bg-red-500 text-white px-4 py-2 rounded-lg text-center hover:bg-red-600 transition-colors">
+                                    <i class="fas fa-download mr-2"></i>Complete Anatomy Notes PDF
+                                </button>
+                                <button onclick="downloadPDF('anatomy-diagrams')" class="block w-full bg-red-100 text-red-700 px-4 py-2 rounded-lg text-center hover:bg-red-200 transition-colors">
+                                    <i class="fas fa-images mr-2"></i>Anatomical Diagrams
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            'physiology': {
+                title: 'Human Physiology Notes',
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-blue-50 rounded-lg p-6">
+                            <h4 class="text-lg font-bold text-blue-800 mb-4">Chapter 1: Cell Physiology</h4>
+                            <ul class="space-y-2 text-blue-700">
+                                <li>• Cell membrane transport</li>
+                                <li>• Cellular metabolism</li>
+                                <li>• Cell division and growth</li>
+                                <li>• Homeostasis mechanisms</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 rounded-lg p-6">
+                            <h4 class="text-lg font-bold text-blue-800 mb-4">Chapter 2: Cardiovascular System</h4>
+                            <ul class="space-y-2 text-blue-700">
+                                <li>• Heart anatomy and physiology</li>
+                                <li>• Cardiac cycle and ECG</li>
+                                <li>• Blood pressure regulation</li>
+                                <li>• Circulation pathways</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 rounded-lg p-6">
+                            <h4 class="text-lg font-bold text-blue-800 mb-4">Download Resources</h4>
+                            <div class="space-y-3">
+                                <button onclick="downloadPDF('physiology-notes')" class="block w-full bg-blue-500 text-white px-4 py-2 rounded-lg text-center hover:bg-blue-600 transition-colors">
+                                    <i class="fas fa-download mr-2"></i>Complete Physiology Notes PDF
+                                </button>
+                                <button onclick="downloadPDF('physiology-charts')" class="block w-full bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-center hover:bg-blue-200 transition-colors">
+                                    <i class="fas fa-chart-line mr-2"></i>Physiological Graphs & Charts
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            'complete-syllabus': {
+                title: 'Complete B.Sc. Nursing Syllabus - TU IOM',
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-blue-50 rounded-lg p-6">
+                            <h4 class="text-lg font-bold text-blue-800 mb-4">TU Institute of Medicine</h4>
+                            <p class="text-blue-700 mb-4">Bachelor of Science in Nursing (B.Sc. Nursing) - 4 Year Program</p>
+                            <ul class="space-y-2 text-blue-700">
+                                <li>• Complete curriculum for all 4 years</li>
+                                <li>• Subject-wise detailed syllabus</li>
+                                <li>• Credit hours and evaluation criteria</li>
+                                <li>• Clinical placement requirements</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-blue-50 rounded-lg p-6">
+                            <h4 class="text-lg font-bold text-blue-800 mb-4">Download Complete Syllabus</h4>
+                            <button onclick="downloadPDF('complete-syllabus')" class="block w-full bg-blue-500 text-white px-4 py-2 rounded-lg text-center hover:bg-blue-600 transition-colors">
+                                <i class="fas fa-download mr-2"></i>Download Official TU IOM Syllabus PDF
+                            </button>
+                        </div>
+                    </div>
+                `
+            }
+            // Add more subjects as needed
+        };
+        
+        const data = notesData[subject] || {
+            title: 'Notes Not Available',
+            content: '<p class="text-gray-600">Notes for this subject are being prepared. Please check back later.</p>'
+        };
+        
+        document.getElementById('notes-modal-title').textContent = data.title;
+        document.getElementById('notes-content').innerHTML = data.content;
+    }
+    
+    function loadQuestions(subject) {
+        const questionsData = {
+            'anatomy': {
+                title: 'Human Anatomy Past Questions',
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-red-50 rounded-lg p-6">
+                            <h4 class="text-lg font-bold text-red-800 mb-4">2079 Board Exam Questions</h4>
+                            <div class="space-y-3">
+                                <div class="bg-white rounded-lg p-4">
+                                    <p class="font-medium text-gray-800 mb-2">1. Define anatomical position. List the directional terms used in anatomy. (5 marks)</p>
+                                    <p class="text-sm text-gray-600">Answer: Anatomical position is the standard reference position...</p>
+                                </div>
+                                <div class="bg-white rounded-lg p-4">
+                                    <p class="font-medium text-gray-800 mb-2">2. Describe the structure and functions of synovial joints. (10 marks)</p>
+                                    <p class="text-sm text-gray-600">Answer: Synovial joints are freely movable joints...</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-red-50 rounded-lg p-6">
+                            <h4 class="text-lg font-bold text-red-800 mb-4">MCQ Practice Questions</h4>
+                            <div class="space-y-3">
+                                <div class="bg-white rounded-lg p-4">
+                                    <p class="font-medium text-gray-800 mb-2">Which of the following is NOT a function of the skeletal system?</p>
+                                    <div class="ml-4 space-y-1 text-sm text-gray-600">
+                                        <p>a) Support and protection</p>
+                                        <p>b) Blood cell production</p>
+                                        <p>c) Hormone secretion</p>
+                                        <p>d) Mineral storage</p>
+                                    </div>
+                                    <p class="text-sm text-green-600 mt-2"><strong>Answer: c) Hormone secretion</strong></p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-red-50 rounded-lg p-6">
+                            <h4 class="text-lg font-bold text-red-800 mb-4">Download Question Papers</h4>
+                            <div class="space-y-3">
+                                <button onclick="downloadPDF('anatomy-questions-2079')" class="block w-full bg-red-500 text-white px-4 py-2 rounded-lg text-center hover:bg-red-600 transition-colors">
+                                    <i class="fas fa-download mr-2"></i>2079 Question Paper PDF
+                                </button>
+                                <button onclick="downloadPDF('anatomy-questions-collection')" class="block w-full bg-red-100 text-red-700 px-4 py-2 rounded-lg text-center hover:bg-red-200 transition-colors">
+                                    <i class="fas fa-file-alt mr-2"></i>Previous Years Collection
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `
+            },
+            'question-bank': {
+                title: 'Nursing Question Banks - All Subjects',
+                content: `
+                    <div class="space-y-6">
+                        <div class="bg-green-50 rounded-lg p-6">
+                            <h4 class="text-lg font-bold text-green-800 mb-4">Complete Question Bank Collection</h4>
+                            <p class="text-green-700 mb-4">Comprehensive collection of MCQs and past papers for all nursing subjects</p>
+                            <ul class="space-y-2 text-green-700">
+                                <li>• Over 5000+ MCQs with detailed explanations</li>
+                                <li>• Past 10 years question papers</li>
+                                <li>• Subject-wise categorization</li>
+                                <li>• NCLEX-style practice questions</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="bg-green-50 rounded-lg p-6">
+                            <h4 class="text-lg font-bold text-green-800 mb-4">Download Question Banks</h4>
+                            <button onclick="downloadPDF('complete-question-bank')" class="block w-full bg-green-500 text-white px-4 py-2 rounded-lg text-center hover:bg-green-600 transition-colors">
+                                <i class="fas fa-download mr-2"></i>Download Complete Question Bank
+                            </button>
+                        </div>
+                    </div>
+                `
+            }
+            // Add more subjects as needed
+        };
+        
+        const data = questionsData[subject] || {
+            title: 'Questions Not Available',
+            content: '<p class="text-gray-600">Past questions for this subject are being compiled. Please check back later.</p>'
+        };
+        
+        document.getElementById('questions-modal-title').textContent = data.title;
+        document.getElementById('questions-content').innerHTML = data.content;
+    }
+    
+    // PDF download function
+    window.downloadPDF = function(type) {
+        // Create a simple PDF download simulation
+        const link = document.createElement('a');
+        link.href = '#'; // In a real app, this would be the actual PDF URL
+        link.download = `${type}.pdf`;
+        
+        // Show download message
+        alert(`Downloading ${type}.pdf... This is a demo - in a real application, the PDF would be downloaded.`);
+        
+        // In a real application, you would:
+        // fetch(`/api/download/${type}/`)
+        //     .then(response => response.blob())
+        //     .then(blob => {
+        //         const url = window.URL.createObjectURL(blob);
+        //         link.href = url;
+        //         link.click();
+        //         window.URL.revokeObjectURL(url);
+        //     });
+    };
+});
+</script>
+{% endblock %}
