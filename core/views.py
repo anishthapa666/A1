@@ -555,11 +555,3 @@ def download_questions(request, subject):
     )
     
     return response
-from django.contrib.auth.models import User
-
-def create_admin(request):
-    if not User.objects.filter(username='admin').exists():
-        User.objects.create_superuser('admin', 'admin@example.com', 'adminpassword123')
-        return HttpResponse("✅ Superuser 'admin' created successfully. Now go to /admin to log in.")
-    else:
-        return HttpResponse("⚠️ Superuser 'admin' already exists. Go to /admin to log in.")

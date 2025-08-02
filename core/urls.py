@@ -24,7 +24,4 @@ urlpatterns = [
     path('nursing-curriculum/', views.nursing_curriculum, name='nursing_curriculum'),
     path('download/notes/<str:subject>/', views.download_notes, name='download_notes'),
     path('download/questions/<str:subject>/', views.download_questions, name='download_questions'),
-
-    # ✅ Temporary route to create a Django superuser (remove after use!)
-    path('create-admin/', views.create_admin, name='create_admin'),
 ]
